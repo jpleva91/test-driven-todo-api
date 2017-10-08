@@ -44,11 +44,19 @@ app.get('/', function homepage(req, res) {
  * ORDER THAT THE TESTS DICTATE.
  */
 
+app.get('/search', function searchpage(req, res) {
+  res.sendFile(__dirname + '/views/search.html');
+});
+
 app.get('/api/todos/search', function search(req, res) {
   /* This endpoint responds with the search results from the
    * query in the request. COMPLETE THIS ENDPOINT LAST.
    */
-   res.json({todos});
+    myTodos = todos.filter(function(el) {
+    return el.task == req.query.q;
+   });
+   
+   res.json(myTodos[0]);
 });
 
 app.get('/api/todos', function index(req, res) {
